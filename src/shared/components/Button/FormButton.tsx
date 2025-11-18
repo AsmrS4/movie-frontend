@@ -1,10 +1,7 @@
 import { Button } from 'antd'
-import { LoginOutlined } from '@ant-design/icons'
-import React from 'react'
-import type { IconType } from 'antd/es/notification/interface'
 
 interface ButtonProps {
-	icon?: IconType
+	icon?: any
 	iconPosition?: 'end' | 'start'
 	text: string
 	size?: 'small' | 'middle' | 'large' | undefined
@@ -23,6 +20,7 @@ const FormButton = ({
 			style={{
 				width: '100%',
 				height: '48px',
+				fontSize: '18px',
 				backgroundColor: '#242424',
 				color: '#fff'
 			}}

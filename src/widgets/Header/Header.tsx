@@ -10,7 +10,7 @@ const Header = () => {
 		if (isAuthorized) {
 			dispatch(clearSession())
 		}
-		window.location.href = '/auth/sign-in'
+		window.location.href = '/auth'
 	}
 	return (
 		<header className='header'>
@@ -31,7 +31,7 @@ const Header = () => {
 				</ul>
 				<div className='header__actions'>
 					<Button size='large' onClick={handleClick}>
-						Войти
+						{isAuthorized ? 'Выйти' : 'Войти'}
 					</Button>
 				</div>
 			</nav>
