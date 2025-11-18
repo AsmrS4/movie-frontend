@@ -1,5 +1,5 @@
-import { Button, Input } from 'antd'
-import { LoginOutlined } from '@ant-design/icons'
+import { InputField, InputPasswordField } from '@components/Input/InputField'
+import FormButton from '@components/Button/FormButton'
 
 const LoginForm = () => {
 	return (
@@ -11,31 +11,10 @@ const LoginForm = () => {
 				</span>
 			</div>
 			<ul className='input-wrapper'>
-				<Input
-					size='large'
-					placeholder='Введите логин'
-					allowClear
-				></Input>
-				<Input.Password
-					size='large'
-					placeholder='Введите пароль'
-					allowClear
-				></Input.Password>
+				<InputField placeholder='Введите логин' />
+				<InputPasswordField placeholder='Введите пароль' />
 			</ul>
-			<Button
-				style={{
-					width: '100%',
-					height: '48px',
-					backgroundColor: '#242424',
-					color: '#fff'
-				}}
-				size='large'
-				icon={<LoginOutlined />}
-				iconPosition='end'
-				shape='round'
-			>
-				Войти
-			</Button>
+			<FormButton text='Войти' />
 		</form>
 	)
 }

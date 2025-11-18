@@ -1,5 +1,5 @@
-import { Button, Input } from 'antd'
-import { LoginOutlined } from '@ant-design/icons'
+import { InputField, InputPasswordField } from '@components/Input/InputField'
+import FormButton from '@components/Button/FormButton'
 
 const RegisterForm = () => {
 	return (
@@ -11,36 +11,11 @@ const RegisterForm = () => {
 				</span>
 			</div>
 			<ul className='input-wrapper'>
-				<Input
-					size='large'
-					placeholder='Придумайте логин'
-					allowClear
-				></Input>
-				<Input.Password
-					size='large'
-					placeholder='Придумайте пароль'
-					allowClear
-				></Input.Password>
-				<Input.Password
-					size='large'
-					placeholder='Повторите пароль'
-					allowClear
-				></Input.Password>
+				<InputField placeholder='Придумайте логин' />
+				<InputPasswordField placeholder='Придумайте пароль' />
+				<InputPasswordField placeholder='Повторите пароль' />
 			</ul>
-			<Button
-				style={{
-					width: '100%',
-					height: '48px',
-					backgroundColor: '#242424',
-					color: '#fff'
-				}}
-				size='large'
-				icon={<LoginOutlined />}
-				iconPosition='end'
-				shape='round'
-			>
-				Создать
-			</Button>
+			<FormButton text='Создать' />
 		</form>
 	)
 }
