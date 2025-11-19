@@ -14,6 +14,10 @@ const MovieCataloguePage = () => {
 		state => state.movieReducer
 	)
 
+	const handleOnCardClick = (cardId: string) => {
+		window.location.href = `/movie/${cardId}`
+	}
+
 	useEffect(() => {
 		dispatch(fetchMovies(pagination))
 	}, [pagination.page])
@@ -38,7 +42,12 @@ const MovieCataloguePage = () => {
 								key={movie.movieId}
 								className={styles.catalogueHolderItem}
 							>
-								<MovieCard {...movie} />
+								<MovieCard
+									{...movie}
+									callback={() => {
+										handleOnCardClick(movie.movieId)
+									}}
+								/>
 							</li>
 						)
 					})}

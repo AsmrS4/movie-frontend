@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import { Badge, Button } from 'antd'
 import type { MovieCardProps } from '@shared/models/MovieModel'
 import { useRecommendMark } from '@hooks/useRecommendMark'
+import type { CallbackProps } from '@shared/models/Callback'
 
 const MovieCard = ({
 	movieId,
@@ -10,8 +11,9 @@ const MovieCard = ({
 	filmYear,
 	imageUrl,
 	rating,
-	genres
-}: MovieCardProps) => {
+	genres,
+	callback
+}: MovieCardProps & CallbackProps) => {
 	const { isVisible, color, handleRecommend } = useRecommendMark()
 	useEffect(() => {
 		handleRecommend(rating)
@@ -22,7 +24,7 @@ const MovieCard = ({
 			color={color || undefined}
 			className={!isVisible ? styles.hidden : ''}
 		>
-			<div className={styles.card}>
+			<div className={styles.card} onClick={callback}>
 				<div className={styles.cardImageWrapper}>
 					<img
 						className={styles.cardImage}
