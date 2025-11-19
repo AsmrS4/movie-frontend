@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import styles from './index.module.scss'
 import { Button } from 'antd'
 import { useAppSelector } from '@hooks/useAppSelector'
 import { useDispatch } from 'react-redux'
 import { fetchMovies } from './slice/api'
+import { FilterOutlined } from '@ant-design/icons'
 import MovieCard from './ui/MovieCard'
 
 const MovieCataloguePage = () => {
 	const dispatch: any = useDispatch()
+
 	const { movies, isLoading, pagination } = useAppSelector(
 		state => state.movieReducer
 	)
@@ -19,8 +21,16 @@ const MovieCataloguePage = () => {
 	return (
 		<section className={styles.cataloguePage}>
 			<div className={styles.container}>
-				<article>Фильмы</article>
-				<Button size='large'>Фильтры</Button>
+				<div className={styles.containerHeader}>
+					<article>Фильмы</article>
+					<Button
+						size='large'
+						icon={<FilterOutlined />}
+						iconPosition='end'
+					>
+						Фильтры
+					</Button>
+				</div>
 				<ul className={styles.catalogueHolder}>
 					{movies.map(movie => {
 						return (

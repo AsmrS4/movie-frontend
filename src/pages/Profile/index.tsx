@@ -1,5 +1,5 @@
 import { Button, Tooltip } from 'antd'
-import { SettingOutlined, BookOutlined } from '@ant-design/icons'
+import { SettingOutlined } from '@ant-design/icons'
 
 import imageDefault from '@assets/userAvatar.jpg'
 import styles from './index.module.scss'
