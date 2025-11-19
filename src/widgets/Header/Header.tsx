@@ -21,7 +21,14 @@ const Header = () => {
 			<nav className='header__navigation-panel'>
 				<div className='header__logo'>HIT's Movies</div>
 				<ul className='navigation-panel__holder'>
-					<li className='navigation-panel__nav-item'>Главная</li>
+					<li
+						className='navigation-panel__nav-item'
+						onClick={() => {
+							handleNavigate('/')
+						}}
+					>
+						Главная
+					</li>
 					{isAuthorized && (
 						<>
 							<li

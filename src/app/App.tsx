@@ -4,6 +4,7 @@ import Header from '@widgets/Header/Header'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ProfilePage from '@pages/Profile'
 import PrivateRoute from './PrivateRoute'
+import MovieCataloguePage from '@pages/Catalogue'
 function App() {
 	return (
 		<>
@@ -11,10 +12,13 @@ function App() {
 			<main className='application-content-container'>
 				<BrowserRouter>
 					<Routes>
-						<Route path='/auth' element={<AuthPage />} />
+						<Route path='/' element={<MovieCataloguePage />} />
+						<Route path='/:id' element />
 						<Route element={<PrivateRoute />}>
+							<Route path='/favourites' element />
 							<Route path='/profile' element={<ProfilePage />} />
 						</Route>
+						<Route path='/auth' element={<AuthPage />} />
 					</Routes>
 				</BrowserRouter>
 			</main>

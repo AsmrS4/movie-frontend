@@ -1,0 +1,41 @@
+import React, { useEffect } from 'react'
+import styles from './index.module.scss'
+import { Button } from 'antd'
+import { useAppSelector } from '@hooks/useAppSelector'
+import { useDispatch } from 'react-redux'
+import { fetchMovies } from './slice/api'
+import MovieCard from './ui/MovieCard'
+
+const MovieCataloguePage = () => {
+	const dispatch: any = useDispatch()
+	const { movies, isLoading, pagination } = useAppSelector(
+		state => state.movieReducer
+	)
+
+	useEffect(() => {
+		dispatch(fetchMovies(pagination))
+	}, [pagination.page])
+
+	return (
+		<section className={styles.cataloguePage}>
+			<div className={styles.container}>
+				<article>Фильмы</article>
+				<Button size='large'>Фильтры</Button>
+				<ul className={styles.catalogueHolder}>
+					{movies.map(movie => {
+						return (
+							<li
+								key={movie.movieId}
+								className={styles.catalogueHolderItem}
+							>
+								<MovieCard {...movie} />
+							</li>
+						)
+					})}
+				</ul>
+			</div>
+		</section>
+	)
+}
+
+export default MovieCataloguePage
