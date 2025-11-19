@@ -1,21 +1,26 @@
-import AuthPage from '@pages/Auth/AuthPage'
-import Footer from '@widgets/Footer/Footer'
-import Header from '@widgets/Header/Header'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import PrivateRoute from '@app/PrivateRoute'
 import ProfilePage from '@pages/Profile'
-import PrivateRoute from './PrivateRoute'
+import AuthPage from '@pages/Auth/AuthPage'
 import MovieCataloguePage from '@pages/Catalogue'
+import MoviePage from '@pages/Movie'
+import Header from '@widgets/Header/Header'
+import Footer from '@widgets/Footer/Footer'
+
 function App() {
 	return (
 		<>
-			<Header />
 			<main className='application-content-container'>
+				<Header />
 				<BrowserRouter>
 					<Routes>
 						<Route path='/' element={<MovieCataloguePage />} />
-						<Route path='/:id' element />
+						<Route path='/movie/:id' element={<MoviePage />} />
 						<Route element={<PrivateRoute />}>
-							<Route path='/favourites' element />
+							<Route
+								path='/favourites'
+								element={<MovieCataloguePage />}
+							/>
 							<Route path='/profile' element={<ProfilePage />} />
 						</Route>
 						<Route path='/auth' element={<AuthPage />} />

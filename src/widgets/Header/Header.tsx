@@ -1,9 +1,10 @@
-import './Header.scss'
-import { useAppSelector } from '@hooks/useAppSelector'
-import { clearSession } from '@shared/store/slices/AuthorizationSlice'
 import { Button } from 'antd'
 import { useDispatch } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+
+import { useAppSelector } from '@hooks/useAppSelector'
+import { clearSession } from '@shared/store/slices/AuthorizationSlice'
+import './Header.scss'
+
 const Header = () => {
 	const { isAuthorized } = useAppSelector(state => state.authorizationReducer)
 	const dispatch: any = useDispatch()

@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authSlice  from './slices/AuthorizationSlice'
 import movieSlice from "@pages/Catalogue/slice/movieSlice";
+import moviePageSlice from "@pages/Movie/slice/movieSlice";
 
 const rootReducer = combineReducers({
     authorizationReducer: authSlice,
-    movieReducer: movieSlice
+    movieReducer: movieSlice,
+    movieDetailsReducer: moviePageSlice
 })
 
 export const setupStore = () => {
