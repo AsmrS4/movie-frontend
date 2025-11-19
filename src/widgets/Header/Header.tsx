@@ -3,6 +3,7 @@ import { useAppSelector } from '@hooks/useAppSelector'
 import { clearSession } from '@shared/store/slices/AuthorizationSlice'
 import { Button } from 'antd'
 import { useDispatch } from 'react-redux'
+import { Navigate } from 'react-router-dom'
 const Header = () => {
 	const { isAuthorized } = useAppSelector(state => state.authorizationReducer)
 	const dispatch: any = useDispatch()
@@ -12,6 +13,9 @@ const Header = () => {
 		}
 		window.location.href = '/auth'
 	}
+	const handleNavigate = (path: string) => {
+		window.location.href = path
+	}
 	return (
 		<header className='header'>
 			<nav className='header__navigation-panel'>
@@ -20,10 +24,20 @@ const Header = () => {
 					<li className='navigation-panel__nav-item'>Главная</li>
 					{isAuthorized && (
 						<>
-							<li className='navigation-panel__nav-item'>
+							<li
+								className='navigation-panel__nav-item'
+								onClick={() => {
+									handleNavigate('/favourites')
+								}}
+							>
 								Избранное
 							</li>
-							<li className='navigation-panel__nav-item'>
+							<li
+								className='navigation-panel__nav-item'
+								onClick={() => {
+									handleNavigate('/profile')
+								}}
+							>
 								Профиль
 							</li>
 						</>
