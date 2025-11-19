@@ -20,7 +20,9 @@ export default defineConfig({
       {find: '@hooks', replacement:'/src/shared/hooks'},
       {find: '@pages', replacement:'/src/pages'},
       {find: '@store', replacement:'/src/shared/store'},
+      {find: '@shared', replacement:'/src/shared'},
       {find: '@models', replacement:'/src/shared/models'},
+      {find: '@utils', replacement:'/src/utils'},
       {find: '@widgets', replacement:'/src/widgets'},
     ]
   }
