@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import styles from './index.module.scss'
-import { Badge, Button } from 'antd'
+import { Badge, Button, Tooltip } from 'antd'
 import type { MovieCardProps } from '@shared/models/MovieModel'
 import { useRecommendMark } from '@hooks/useRecommendMark'
 import type { CallbackProps } from '@shared/models/Callback'
@@ -34,7 +34,9 @@ const MovieCard = ({
 				</div>
 				<ul className={styles.cardBody}>
 					<li className={styles.cardBodyItem}>
-						<p className={styles.cardTitle}>{title}</p>
+						<Tooltip title={title} placement='bottom'>
+							<p className={styles.cardTitle}>{title}</p>
+						</Tooltip>
 					</li>
 					<li className={styles.cardBodyItem}>
 						<span className={styles.cardInfo}>{filmYear}</span>

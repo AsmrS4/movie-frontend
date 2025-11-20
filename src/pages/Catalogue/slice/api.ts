@@ -25,3 +25,11 @@ export const fetchMovies = (pagination: Pagination)=> async(dispatch: Dispatch) 
         }, 500)
     }
 }
+
+export const fetchGenres = async() => {
+    try {
+        return (await instanceDefault.get('/movie/catalogue/genres')).data
+    } catch (error) {
+        throw new Error('Не удалось получить данные о жанрах')
+    }
+}

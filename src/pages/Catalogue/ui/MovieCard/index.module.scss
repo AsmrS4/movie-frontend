@@ -18,7 +18,7 @@
 		box-sizing: border-box;
 
 		&Item {
-			width: 100%;
+			width: auto;
 			box-sizing: border-box;
 
 			.cardTitle {
@@ -28,7 +28,7 @@
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				overflow: hidden;
-
+				width: auto;
 				transition: all ease-in-out 0.2s;
 
 				&:hover {
@@ -36,6 +36,7 @@
 				}
 				cursor: pointer;
 			}
+
 			.cardInfo {
 				margin: 0;
 				font-size: 16px;
