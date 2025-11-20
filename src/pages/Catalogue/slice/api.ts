@@ -8,10 +8,10 @@ import { delay } from "@helpers/delay";
 export const fetchMovies = (pagination: Pagination)=> async(dispatch: Dispatch) => {
     dispatch(manageLoadingProcess(true))
     try {
-        const {page, size} = pagination
+        const {current, size} = pagination
         const response = await instanceDefault.get('/movie/catalogue', {
             params: {
-                page: page,
+                page: current,
                 size: size
             }
         })

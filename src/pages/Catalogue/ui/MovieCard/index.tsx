@@ -45,16 +45,6 @@ const MovieCard = ({
 							{genres[0].name}
 						</span>
 					</li>
-					<li className={styles.cardBodyItem}>
-						<Button
-							style={{ width: '100%' }}
-							shape='round'
-							variant='filled'
-							id={movieId}
-						>
-							Открыть
-						</Button>
-					</li>
 				</ul>
 			</div>
 		</Badge.Ribbon>

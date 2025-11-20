@@ -1,9 +1,6 @@
-import type { Dispatch } from "@reduxjs/toolkit";
-import { clearSession, refreshSession } from "@shared/store/slices/AuthorizationSlice";
 import axios from "axios";
 import dayjs from "dayjs";
 import { jwtDecode }from 'jwt-decode'
-import { useDispatch } from "react-redux";
 
 const BASE_URL = 'http://localhost:8080/api'
 
@@ -19,7 +16,7 @@ const instanceWithAuthorization = axios.create({
 })
 
 instanceDefault.interceptors.response.use(
-    (result) => { console.log(result.status); return result; },
+    (result) => { console.log(result.data); return result; },
     (error) => { console.log(error); throw error }
 )
 

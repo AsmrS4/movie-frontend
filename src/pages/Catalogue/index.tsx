@@ -8,27 +8,45 @@ import { FilterOutlined } from '@ant-design/icons'
 import MovieCard from './ui/MovieCard'
 import CustomModal from '@widgets/Modal'
 import FilterForm from './ui/Form'
+import { changeCurrentPage } from './slice/movieSlice'
+import type { MovieCardProps, MoviePageProps } from '@shared/models/MovieModel'
 
 const MovieCataloguePage = () => {
-	const dispatch: any = useDispatch()
-	const [openModal, setOpen] = useState<boolean>(false)
 	const { movies, isLoading, pagination } = useAppSelector(
 		state => state.movieReducer
 	)
+	const dispatch: any = useDispatch()
+	const [openModal, setOpen] = useState<boolean>(false)
+	const [disableLoad, setDisableLoadButton] = useState<boolean>(false)
+	const [loadedMovies, setLoadedMovies] = useState<MovieCardProps[]>([])
 
 	const handleOnCardClick = (cardId: string) => {
 		window.location.href = `/movie/${cardId}`
 	}
 
-	useEffect(() => {
-		dispatch(fetchMovies(pagination))
-	}, [pagination.page])
+	const increaseCurrentPage = () => {
+		if (pagination.current <= pagination.count)
+			dispatch(changeCurrentPage())
+	}
 
+	useEffect(() => {
+		if (pagination.count != 0 && pagination.current >= pagination.count) {
+			setDisableLoadButton(true)
+		}
+		if (pagination.count == 0 || pagination.current <= pagination.count)
+			dispatch(fetchMovies(pagination))
+	}, [pagination.current])
+
+	useEffect(() => {
+		if (pagination.current <= pagination.count) {
+			setLoadedMovies(prev => [...prev, ...movies])
+		}
+	}, [movies])
 	return (
 		<section className={styles.cataloguePage}>
 			<div className={styles.container}>
 				<div className={styles.containerHeader}>
-					<article>Фильмы</article>
+					<h1>Фильмы</h1>
 					<Button
 						size='large'
 						shape='round'
@@ -43,7 +61,7 @@ const MovieCataloguePage = () => {
 					</Button>
 				</div>
 				<ul className={styles.catalogueHolder}>
-					{movies.map(movie => {
+					{loadedMovies.map(movie => {
 						return (
 							<li
 								key={movie.movieId}
@@ -59,6 +77,17 @@ const MovieCataloguePage = () => {
 						)
 					})}
 				</ul>
+				{!disableLoad && (
+					<Button
+						size='large'
+						shape='round'
+						className={styles.styledButton}
+						style={{ width: '200px', margin: '20px auto' }}
+						onClick={increaseCurrentPage}
+					>
+						Загрузить еще
+					</Button>
+				)}
 			</div>
 			<CustomModal
 				modalTitle={'Фильтры'}
