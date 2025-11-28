@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Button } from 'antd'
-import { useAppSelector } from '@hooks/useAppSelector'
 import { useDispatch } from 'react-redux'
-import { fetchMovies } from './slice/api'
+import { Button } from 'antd'
 import { FilterOutlined } from '@ant-design/icons'
-import MovieCard from './ui/MovieCard'
+import { useAppSelector } from '@hooks/useAppSelector'
+import type { MovieCardProps } from '@shared/models/MovieModel'
 import CustomModal from '@widgets/Modal'
+
+import MovieCard from './ui/MovieCard'
 import FilterForm from './ui/Form'
 import { changeCurrentPage } from './slice/movieSlice'
-import type { MovieCardProps, MoviePageProps } from '@shared/models/MovieModel'
+import { fetchMovies } from './slice/api'
+
+import styles from './index.module.scss'
 
 const MovieCataloguePage = () => {
 	const { movies, isLoading, pagination } = useAppSelector(
@@ -42,6 +44,7 @@ const MovieCataloguePage = () => {
 			setLoadedMovies(prev => [...prev, ...movies])
 		}
 	}, [movies])
+
 	return (
 		<section className={styles.cataloguePage}>
 			<div className={styles.container}>
