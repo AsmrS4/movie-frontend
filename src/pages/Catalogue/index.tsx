@@ -12,38 +12,16 @@ import { changeCurrentPage } from './slice/movieSlice'
 import { fetchMovies } from './slice/api'
 
 import styles from './index.module.scss'
+import { useCatalogue } from './hooks/useCatalogue'
 
 const MovieCataloguePage = () => {
-	const { movies, isLoading, pagination } = useAppSelector(
-		state => state.movieReducer
-	)
-	const dispatch: any = useDispatch()
 	const [openModal, setOpen] = useState<boolean>(false)
-	const [disableLoad, setDisableLoadButton] = useState<boolean>(false)
-	const [loadedMovies, setLoadedMovies] = useState<MovieCardProps[]>([])
-
-	const handleOnCardClick = (cardId: string) => {
-		window.location.href = `/movie/${cardId}`
-	}
-
-	const increaseCurrentPage = () => {
-		if (pagination.current <= pagination.count)
-			dispatch(changeCurrentPage())
-	}
-
-	useEffect(() => {
-		if (pagination.count != 0 && pagination.current >= pagination.count) {
-			setDisableLoadButton(true)
-		}
-		if (pagination.count == 0 || pagination.current <= pagination.count)
-			dispatch(fetchMovies(pagination))
-	}, [pagination.current])
-
-	useEffect(() => {
-		if (pagination.current <= pagination.count) {
-			setLoadedMovies(prev => [...prev, ...movies])
-		}
-	}, [movies])
+	const {
+		loadedMovies,
+		disableLoad,
+		handleOnCardClick,
+		increaseCurrentPage
+	} = useCatalogue()
 
 	return (
 		<section className={styles.cataloguePage}>
