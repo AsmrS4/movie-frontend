@@ -31,7 +31,7 @@ export interface GenreProps {
 }
 
 export interface Pagination {
-    page: number
+    current: number
     count: number
     size: number
 }
