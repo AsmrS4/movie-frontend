@@ -16,17 +16,15 @@ const MoviePage = () => {
 	const { isLoading, movie } = useAppSelector(
 		state => state.movieDetailsReducer
 	)
-	const onLoad = async () => {
+	const onPageLoad = async () => {
 		try {
 			setMovie(await fetchMovieDetails(id || ''))
 		} catch (error) {}
 	}
 	useEffect(() => {
-		if (movieDetails !== null) {
-			dispatch(setMovieDetails(movieDetails))
-			return
-		}
-		onLoad()
+		movieDetails !== null
+			? dispatch(setMovieDetails(movieDetails))
+			: onPageLoad()
 	}, [movieDetails])
 	return (
 		<section className={styles.moviePage}>

@@ -11,9 +11,9 @@ const initialState: MoviesInitialProps = {
     movies: [],
     isLoading: false,
     pagination: {
-        page: 1,
+        current: 1,
         count: 0,
-        size: 8
+        size: 9
     }
 }
 
@@ -30,8 +30,8 @@ const movieSlice = createSlice({
         setPagination: (state, action: PayloadAction<Pagination>) => {
             state.pagination = action.payload
         },
-        changeCurrentPage: (state, action: PayloadAction<number>) => {
-            state.pagination = {...state.pagination, page: action.payload}
+        changeCurrentPage: (state) => {
+            state.pagination.current = state.pagination.current + 1
         }
     }
 })
