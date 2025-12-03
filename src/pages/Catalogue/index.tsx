@@ -1,18 +1,13 @@
-import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 import { Button } from 'antd'
 import { FilterOutlined } from '@ant-design/icons'
-import { useAppSelector } from '@hooks/useAppSelector'
-import type { MovieCardProps } from '@shared/models/MovieModel'
-import CustomModal from '@widgets/Modal'
 
+import CustomModal from '@widgets/Modal'
 import MovieCard from './ui/MovieCard'
 import FilterForm from './ui/Form'
-import { changeCurrentPage } from './slice/movieSlice'
-import { fetchMovies } from './slice/api'
+import { useCatalogue } from './hooks/useCatalogue'
 
 import styles from './index.module.scss'
-import { useCatalogue } from './hooks/useCatalogue'
 
 const MovieCataloguePage = () => {
 	const [openModal, setOpen] = useState<boolean>(false)

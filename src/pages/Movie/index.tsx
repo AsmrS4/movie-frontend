@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import type { MoviePageProps } from '@shared/models/MovieModel'
-import { useAppSelector } from '@hooks/useAppSelector'
-import { useDispatch } from 'react-redux'
-import { setMovieDetails } from './slice/movieSlice'
-import { useParams } from 'react-router-dom'
-import { fetchMovieDetails } from './slice/api'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 
+import styles from './index.module.scss'
+import useMovie from './hooks/useMovieDetails'
+
 const MoviePage = () => {
-	const [movieDetails, setMovie] = useState<MoviePageProps | null>(null)
-	const dispatch: any = useDispatch()
-	const { id } = useParams()
-	const { isLoading, movie } = useAppSelector(
-		state => state.movieDetailsReducer
-	)
-	const onPageLoad = async () => {
-		try {
-			setMovie(await fetchMovieDetails(id || ''))
-		} catch (error) {}
+	const {movie, isLoading, id} = useMovie()
+	const handleClickOnFavouritesButton = () => {
+
 	}
-	useEffect(() => {
-		movieDetails !== null
-			? dispatch(setMovieDetails(movieDetails))
-			: onPageLoad()
-	}, [movieDetails])
 	return (
 		<section className={styles.moviePage}>
 			<div className={styles.container}>
