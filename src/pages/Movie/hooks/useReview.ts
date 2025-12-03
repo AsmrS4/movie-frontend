@@ -1,5 +1,5 @@
 import { useAppSelector } from "@hooks/useAppSelector"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 import { useDispatch } from "react-redux";
 import { fetchMovieReviews } from "../slice/api";
@@ -12,7 +12,6 @@ const useReviews = (movieId: string) => {
     const checkHasReview = (): boolean => {
 		const userId = localStorage.getItem('USER_ID') || null
 		if(reviews) {
-            
             return reviews.findIndex(review => {
 				return review.author.id == userId
 			}) >= 0

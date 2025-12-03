@@ -7,7 +7,7 @@ import useReviews from './hooks/useReview'
 import { useParams } from 'react-router-dom'
 import { ReviewList } from './ui/Reviews/List/ReviewList'
 import { ceilDecimal } from '@helpers/ceilRating'
-
+import noImage from '@assets/no-photo.jpeg'
 
 const MoviePage = () => {
 	const { id } = useParams()
@@ -27,7 +27,11 @@ const MoviePage = () => {
 				<section className={styles.movieDetailsContainer}>
 					<div className={styles.imageContainer}>
 						{movie.rating > 0 && <span className={styles.ratingMark}>{ceilDecimal(movie.rating)}</span>}
-						<img src={movie?.imageUrl} alt='Фото пользователя' />
+						<img src={movie?.imageUrl} 
+							onError={({ currentTarget }) => {
+    						currentTarget.onerror = null; 
+    						currentTarget.src=noImage;}} 
+							alt='Фото пользователя' />
 					</div>
 					<ul className={styles.movieDetails}>
 						<li className={styles.movieDetailsItem}>

@@ -4,7 +4,7 @@ import { Badge, Button, Tooltip } from 'antd'
 import type { MovieCardProps } from '@shared/models/MovieModel'
 import { useRecommendMark } from '@hooks/useRecommendMark'
 import type { CallbackProps } from '@shared/models/Callback'
-
+import noImage from '@assets/no-photo.jpeg'
 const MovieCard = ({
 	movieId,
 	title,
@@ -14,13 +14,13 @@ const MovieCard = ({
 	genres,
 	callback
 }: MovieCardProps & CallbackProps) => {
-	const { isVisible, color, handleRecommend } = useRecommendMark()
+	const { isVisible, color, recommendationMsg, handleRecommend } = useRecommendMark()
 	useEffect(() => {
 		handleRecommend(rating)
 	}, [])
 	return (
 		<Badge.Ribbon
-			text='Высокий рейтинг'
+			text={recommendationMsg}
 			color={color || undefined}
 			className={!isVisible ? styles.hidden : ''}
 		>
@@ -29,6 +29,10 @@ const MovieCard = ({
 					<img
 						className={styles.cardImage}
 						src={imageUrl}
+						onError={({ currentTarget }) => {
+    						currentTarget.onerror = null; 
+    						currentTarget.src=noImage;
+  						}}
 						alt='Не удалось загрузить изобажение'
 					/>
 				</div>
