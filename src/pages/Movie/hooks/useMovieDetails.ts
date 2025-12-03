@@ -6,16 +6,15 @@ import { useParams } from "react-router-dom"
 import { fetchMovieDetails } from "../slice/api"
 import { setMovieDetails } from "../slice/movieSlice"
 
-const useMovie = () => {
+const useMovie = (movieId: string) => {
     const [movieDetails, setMovie] = useState<MoviePageProps | null>(null)
 	const dispatch: any = useDispatch()
-	const { id } = useParams()
 	const { isLoading, movie } = useAppSelector(
 		state => state.movieDetailsReducer
 	)
 	const onPageLoad = async () => {
 		try {
-			setMovie(await fetchMovieDetails(id || ''))
+			setMovie(await fetchMovieDetails(movieId || ''))
 		} catch (error) {}
 	}
 	useEffect(() => {
@@ -23,7 +22,7 @@ const useMovie = () => {
 			? dispatch(setMovieDetails(movieDetails))
 			: onPageLoad()
 	}, [movieDetails])
-    return {movie, isLoading, movieDetails, id, dispatch}
+    return {movie, isLoading, movieDetails, dispatch}
 } 
 
 export default useMovie

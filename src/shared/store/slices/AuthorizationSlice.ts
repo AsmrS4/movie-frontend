@@ -25,6 +25,7 @@ const authorizationSlice = createSlice( {
             state.refreshToken = action.payload.token.refreshToken
             localStorage.setItem('ACCESS_TOKEN', action.payload.token.accessToken)
             localStorage.setItem('REFRESH_TOKEN', action.payload.token.refreshToken)
+            localStorage.setItem('USER_ID', action.payload.profile.id)
             state.isAuthorized = true
         },
         refreshSession: (state, action: PayloadAction<TokenResponse>) => {

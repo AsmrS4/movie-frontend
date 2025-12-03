@@ -6,3 +6,9 @@ export interface UserModel {
     login: string,
     createTime: Date
 }
+
+export interface ReviewAuthorModel {
+    id: string
+    login: string
+    imageUrl: string | null
+}

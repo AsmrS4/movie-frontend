@@ -3,12 +3,21 @@ import { Button } from 'antd'
 
 import styles from './index.module.scss'
 import useMovie from './hooks/useMovieDetails'
+import useReviews from './hooks/useReview'
+import { useParams } from 'react-router-dom'
+import { ReviewList } from './ui/Reviews/List/ReviewList'
+import { ceilDecimal } from '@helpers/ceilRating'
+
 
 const MoviePage = () => {
-	const {movie, isLoading, id} = useMovie()
+	const { id } = useParams()
+	const {movie, isLoading} = useMovie(id || '')
+	const {reviews, hasReview} = useReviews(id || '')
+	
 	const handleClickOnFavouritesButton = () => {
 
 	}
+	
 	return (
 		<section className={styles.moviePage}>
 			<div className={styles.container}>
@@ -17,6 +26,7 @@ const MoviePage = () => {
 				</div>
 				<section className={styles.movieDetailsContainer}>
 					<div className={styles.imageContainer}>
+						{movie.rating > 0 && <span className={styles.ratingMark}>{ceilDecimal(movie.rating)}</span>}
 						<img src={movie?.imageUrl} alt='Фото пользователя' />
 					</div>
 					<ul className={styles.movieDetails}>
@@ -67,15 +77,16 @@ const MoviePage = () => {
 				<section className={styles.movieReviewsContainer}>
 					<div className={styles.movieReviewsSectionTitle}>
 						<strong>Рецензии пользователей</strong>
-						<Button
+						{reviews && reviews.length > 0 && <span className={styles.count}>{reviews?.length} рецензии</span>}
+						{!hasReview && <Button
 							className={styles.styledButton}
 							shape='round'
 							icon={<PlusOutlined />}
 						>
 							Написать рецензию
-						</Button>
+						</Button>}
 					</div>
-					<ul className={styles.movieReviewsHolder}></ul>
+					<ReviewList reviews={reviews}/>
 				</section>
 			</div>
 		</section>
