@@ -1,0 +1,52 @@
+.card {
+	width: auto;
+	&ImageWrapper {
+		width: 270px;
+		height: 405px;
+	}
+	&Image {
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	&Body {
+		width: 100%;
+		padding: 8px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		box-sizing: border-box;
+
+		&Item {
+			width: auto;
+			box-sizing: border-box;
+
+			.cardTitle {
+				margin: 0;
+				font-size: 18px;
+				font-weight: 600;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+				width: auto;
+				transition: all ease-in-out 0.2s;
+
+				&:hover {
+					color: #f38a02;
+				}
+				cursor: pointer;
+			}
+
+			.cardInfo {
+				margin: 0;
+				font-size: 16px;
+				font-weight: 400;
+				color: #777777;
+			}
+		}
+	}
+}
+
+.hidden {
+	display: none;
+}

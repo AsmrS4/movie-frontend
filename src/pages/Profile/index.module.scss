@@ -1,0 +1,94 @@
+section.profilePage {
+	max-width: 768px;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 20px;
+	margin: 0 auto;
+	background-color: #fff;
+
+	-webkit-box-shadow: 0px 4px 5px -2px rgba(0, 1, 2, 0.25);
+	-moz-box-shadow: 0px 4px 5px -2px rgba(0, 1, 2, 0.25);
+	box-shadow: 0px 4px 5px -2px rgba(0, 1, 2, 0.25);
+
+	.container {
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+
+		article.profileArticle {
+			margin: 0;
+			padding: 0 20px;
+			font-size: 32px;
+			font-weight: 600;
+			color: #242424;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.profileDetailsContainer {
+			width: 100%;
+			box-sizing: border-box;
+			display: flex;
+			flex-direction: row;
+			align-items: start;
+
+			.imageContainer {
+				min-width: 240px;
+				min-height: 240px;
+				max-width: 300px;
+				max-height: 300px;
+				flex: 1;
+				img {
+					width: 100%;
+				}
+			}
+			.profileDetails {
+				flex: 1;
+				padding: 40px 20px;
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+				box-sizing: border-box;
+				width: 100%;
+
+				&Item {
+					width: 100%;
+					height: 48px;
+					box-sizing: border-box;
+
+					display: flex;
+					align-items: center;
+					justify-content: left;
+					position: relative;
+					border-bottom: 1px solid #aaaaaa;
+
+					span {
+						margin: 0;
+						padding: 10px;
+					}
+					p {
+						margin: 0;
+						font-size: 16px;
+						font-weight: 300;
+
+						position: absolute;
+						top: -10px;
+						left: 10px;
+					}
+					&Last {
+						border: none;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						gap: 12px;
+					}
+				}
+			}
+		}
+	}
+}

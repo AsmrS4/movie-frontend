@@ -1,9 +1,6 @@
-import type { Dispatch } from "@reduxjs/toolkit";
-import { clearSession, refreshSession } from "@shared/store/slices/AuthorizationSlice";
 import axios from "axios";
 import dayjs from "dayjs";
 import { jwtDecode }from 'jwt-decode'
-import { useDispatch } from "react-redux";
 
 const BASE_URL = 'http://localhost:8080/api'
 
@@ -19,7 +16,7 @@ const instanceWithAuthorization = axios.create({
 })
 
 instanceDefault.interceptors.response.use(
-    (result) => { console.log(result.status); return result; },
+    (result) => { console.log(result.data); return result; },
     (error) => { console.log(error); throw error }
 )
 
@@ -41,10 +38,10 @@ instanceWithAuthorization.interceptors.response.use(
 instanceWithAuthorization.interceptors.request.use(async req => {
     const accessToken = getTokenFromStorage('ACCESS_TOKEN')
     const refreshToken = getTokenFromStorage('REFRESH_TOKEN')
-    const dispatch = useDispatch();
+    
 
     if(accessToken === null || refreshToken == null) {
-        dispatch(clearSession())
+        localStorage.clear();
         window.location.href = '/auth'
     }
 
@@ -53,20 +50,21 @@ instanceWithAuthorization.interceptors.request.use(async req => {
 
     if(!isAccessExpired) return req
 
-    await refresh(refreshToken, dispatch)
+    await refresh(refreshToken)
 
     req.headers.Authorization = `Bearer ${getTokenFromStorage('ACCESS_TOKEN')}`
     return req
 })
 
-const refresh = async(refreshToken: string | null, dispatch: Dispatch) => {
+const refresh = async(refreshToken: string | null) => {
     try {
         const response = await instanceDefault.post('/auth/refresh', {
             refreshToken: refreshToken
         })
-        dispatch(refreshSession(response.data))
+        localStorage.setItem('ACCESS_TOKEN', response.data.accessToken)
+        localStorage.setItem('REFRESH_TOKEN', response.data.refreshToken)
     } catch (error) {
-        dispatch(clearSession())
+        localStorage.clear()
         window.location.href = '/auth';
     }
 }
