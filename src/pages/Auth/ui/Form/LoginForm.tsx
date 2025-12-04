@@ -1,7 +1,7 @@
 import { InputField, InputPasswordField } from '@components/Input/InputField'
 import FormButton from '@components/Button/FormButton'
 import { Form } from 'antd'
-import { authSchema, type AuthSchema } from '@pages/Auth/config/form.config'
+import { authSchema, type AuthSchema } from '@pages/Auth/constants/form.config'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'

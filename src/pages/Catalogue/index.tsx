@@ -4,16 +4,18 @@ import { FilterOutlined } from '@ant-design/icons'
 
 import CustomModal from '@widgets/Modal'
 import MovieCard from './ui/MovieCard'
-import FilterForm from './ui/Form'
+import FilterForm from './ui/FilterForm'
 import { useCatalogue } from './hooks/useCatalogue'
 
 import styles from './index.module.scss'
+import SpinLoader from '@components/Loader/SpinLoader'
 
 const MovieCataloguePage = () => {
 	const [openModal, setOpen] = useState<boolean>(false)
 	const {
 		loadedMovies,
 		disableLoad,
+		isLoading,
 		handleOnCardClick,
 		increaseCurrentPage
 	} = useCatalogue()
@@ -36,42 +38,42 @@ const MovieCataloguePage = () => {
 						Фильтры
 					</Button>
 				</div>
-				<ul className={styles.catalogueHolder}>
-					{loadedMovies.map(movie => {
-						return (
-							<li
-								key={movie.movieId}
-								className={styles.catalogueHolderItem}
-							>
-								<MovieCard
-									{...movie}
-									callback={() => {
-										handleOnCardClick(movie.movieId)
-									}}
-								/>
-							</li>
-						)
-					})}
-				</ul>
-				{!disableLoad && (
-					<Button
-						size='large'
-						shape='round'
-						className={styles.styledButton}
-						style={{ width: '200px', margin: '20px auto' }}
-						onClick={increaseCurrentPage}
-					>
-						Загрузить еще
-					</Button>
-				)}
+				<>
+					<ul className={styles.catalogueHolder}>
+						{loadedMovies.map(movie => {
+							return (
+								<li
+									key={movie.movieId}
+									className={styles.catalogueHolderItem}
+								>
+									<MovieCard
+										{...movie}
+										callback={() => {
+											handleOnCardClick(movie.movieId)
+										}}
+									/>
+								</li>
+							)
+						})}
+					</ul>
+					{!disableLoad && (
+						<Button
+							size='large'
+							shape='round'
+							className={styles.styledButton}
+							style={{ width: '200px', margin: '20px auto' }}
+							onClick={increaseCurrentPage}
+						>
+							Загрузить еще
+						</Button>
+					)}
+				</>
 			</div>
 			<CustomModal
 				modalTitle={'Фильтры'}
 				open={openModal}
 				setOpen={setOpen}
 				children={<FilterForm />}
-				okText={'Применить'}
-				cancelText={'Отмена'}
 			/>
 		</section>
 	)

@@ -10,20 +10,19 @@ export interface MovieCardProps {
 export interface MoviePageProps {
 	movieId: string
 	title: string
-    description: string 
-    filmYear: number 
-    country: string
-    imageUrl: string
-    lasting: number
-	rating: number 
-    ageLimit: number
-    budget: string 
-    fees: string
-    actors: string 
-    director: string 
-	genres: GenreProps[] 
+	description: string
+	filmYear: number
+	country: string
+	imageUrl: string
+	lasting: number
+	rating: number
+	ageLimit: number
+	budget: string
+	fees: string
+	actors: string
+	director: string
+	genres: GenreProps[]
 }
-
 
 export interface GenreProps {
 	id: string
@@ -31,7 +30,16 @@ export interface GenreProps {
 }
 
 export interface Pagination {
-    current: number
-    count: number
-    size: number
+	current: number
+	count: number
+	size: number
+}
+
+export interface Filter {
+	search: string
+	genres: string[]
+	minYear: number
+	maxYear: number
+	minAge: number
+	maxAge: number
 }

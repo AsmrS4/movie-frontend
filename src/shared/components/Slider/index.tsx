@@ -1,4 +1,3 @@
-import React from 'react'
 import { Slider } from 'antd'
 
 interface SliderProps {
@@ -6,15 +5,18 @@ interface SliderProps {
 	defaultValue?: number[]
 	min?: number
 	max?: number
+	onChangeValue: (value: number[]) => void
 }
 
-const CustomSlider = ({ step, defaultValue, min, max }: SliderProps) => {
-	const onChange = (value: number | number[]) => {
-		console.log('onChange: ', value)
-	}
-
-	const onChangeComplete = (value: number | number[]) => {
-		console.log('onChangeComplete: ', value)
+const CustomSlider = ({
+	step,
+	defaultValue,
+	min,
+	max,
+	onChangeValue
+}: SliderProps) => {
+	const onChange = (value: number[]) => {
+		onChangeValue(value)
 	}
 
 	return (
@@ -27,7 +29,6 @@ const CustomSlider = ({ step, defaultValue, min, max }: SliderProps) => {
 				max={max}
 				defaultValue={defaultValue}
 				onChange={onChange}
-				onChangeComplete={onChangeComplete}
 			/>
 		</>
 	)

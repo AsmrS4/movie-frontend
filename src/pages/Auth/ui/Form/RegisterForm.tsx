@@ -4,7 +4,7 @@ import { Form } from 'antd'
 import {
 	registerSchema,
 	type RegisterSchema
-} from '@pages/Auth/config/form.config'
+} from '@pages/Auth/constants/form.config'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useDispatch } from 'react-redux'

@@ -7,10 +7,17 @@ interface CustomSelectProps {
 	rawOptions: Array<Object>
 	placeholder: string
 	size?: SizeType
+	value: any[]
+	onChange: (value: any[]) => void
 }
 
-const CustomSelect = ({ rawOptions, placeholder, size }: CustomSelectProps) => {
-	const [value, setValue] = useState([])
+const CustomSelect = ({
+	rawOptions,
+	placeholder,
+	size,
+	value,
+	onChange
+}: CustomSelectProps) => {
 	const options: any = rawOptions.map(item => {
 		if ('id' in item && 'name' in item) {
 			return { label: item?.name, value: item?.id }
@@ -26,8 +33,8 @@ const CustomSelect = ({ rawOptions, placeholder, size }: CustomSelectProps) => {
 	}
 
 	const selectProps: SelectProps = {
-		value,
-		onChange: setValue
+		value: value,
+		onChange: onChange
 	}
 
 	return <Select size={size || 'large'} {...sharedProps} {...selectProps} />
