@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Modal } from 'antd'
 
 interface ModalProps {
@@ -10,14 +10,7 @@ interface ModalProps {
 	cancelText?: string
 }
 
-const CustomModal = ({
-	modalTitle,
-	open,
-	setOpen,
-	children,
-	okText,
-	cancelText
-}: ModalProps) => {
+const CustomModal = ({ modalTitle, open, setOpen, children }: ModalProps) => {
 	const handleCancel = () => {
 		setOpen(false)
 	}

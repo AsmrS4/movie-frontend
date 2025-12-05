@@ -1,13 +1,12 @@
 import { useAppSelector } from '@hooks/useAppSelector'
 import { useDispatch } from 'react-redux'
-import { changeCurrentPage, manageLoadingProcess } from '../slice/movieSlice'
+import { changeCurrentPage } from '../slice/movieSlice'
 import { useEffect, useState } from 'react'
 import { fetchMovies } from '../slice/api'
 import type { MovieCardProps } from '@shared/models/MovieModel'
-import { delay } from '@helpers/delay'
 
 export const useCatalogue = () => {
-	const { movies, isLoading, pagination } = useAppSelector(
+	const { movies, isLoading, filter, pagination } = useAppSelector(
 		state => state.movieReducer
 	)
 	const [disableLoad, setDisableLoadButton] = useState<boolean>(false)
@@ -24,17 +23,23 @@ export const useCatalogue = () => {
 	}
 
 	useEffect(() => {
-		if (pagination.count != 0 && pagination.current >= pagination.count) {
-			setDisableLoadButton(true)
-		}
-		if (pagination.count == 0 || pagination.current <= pagination.count)
-			dispatch(fetchMovies(pagination))
+		setDisableLoadButton(
+			pagination.count != 0 && pagination.current >= pagination.count
+		)
+	}, [pagination.current, pagination.count])
+
+	useEffect(() => {
+		if (pagination.current !== 1) dispatch(fetchMovies(filter, pagination))
 	}, [pagination.current])
+
+	useEffect(() => {
+		setLoadedMovies([])
+		dispatch(fetchMovies(filter, pagination))
+	}, [filter])
 
 	useEffect(() => {
 		if (pagination.current <= pagination.count) {
 			setLoadedMovies(prev => [...prev, ...movies])
-			delay(dispatch(manageLoadingProcess(false)), 500)
 		}
 	}, [movies])
 

@@ -6,9 +6,7 @@ import CustomModal from '@widgets/Modal'
 import MovieCard from './ui/MovieCard'
 import FilterForm from './ui/FilterForm'
 import { useCatalogue } from './hooks/useCatalogue'
-
 import styles from './index.module.scss'
-import SpinLoader from '@components/Loader/SpinLoader'
 
 const MovieCataloguePage = () => {
 	const [openModal, setOpen] = useState<boolean>(false)

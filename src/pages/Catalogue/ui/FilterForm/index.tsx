@@ -9,7 +9,21 @@ import CustomSlider from '../../../../shared/components/Slider'
 import { filterSchema, type FilterSchema } from '../../constant/schema.config'
 import CustomSelect from '@components/MultipleSelect'
 import { fetchGenres } from '@pages/Catalogue/slice/api'
-import type { GenreProps } from '@shared/models/MovieModel'
+import type { Filter, GenreProps, MovieFilter } from '@shared/models/MovieModel'
+import { useAppSelector } from '@hooks/useAppSelector'
+import { setFilters } from '@pages/Catalogue/slice/movieSlice'
+
+const transformFilterToCorrectFormat = (rawFilters: Filter) => {
+	const filters: MovieFilter = {
+		search: rawFilters.search || '',
+		minAge: rawFilters.ageLimits[0],
+		maxAge: rawFilters.ageLimits[1],
+		minYear: rawFilters.years[0],
+		maxYear: rawFilters.years[1],
+		genres: rawFilters.genres || []
+	}
+	return filters
+}
 
 const FilterForm = () => {
 	const currentYear = new Date().getFullYear()
@@ -20,30 +34,18 @@ const FilterForm = () => {
 	} = useForm<FilterSchema>({
 		resolver: zodResolver(filterSchema),
 		defaultValues: {
-			search: '',
-			genres: [],
+			search: null,
+			genres: null,
 			years: [1950, currentYear],
 			ageLimits: [0, 18]
 		}
 	})
-
 	const [genres, setGenres] = useState<GenreProps[]>([])
-	const [isLoading, setIsLoading] = useState<boolean>(false)
-	const { contextHolder, showNotification } = useAppNotification('error')
 	const dispatch: any = useDispatch()
-	const onSubmit = async (form: any) => {
-		try {
-			setIsLoading(true)
-			console.log(form)
-		} catch (error: any) {
-			return showNotification({
-				message: 'Не удалось обработать запрос',
-				description: error?.message,
-				placement: 'bottomRight'
-			})
-		} finally {
-			return setIsLoading(false)
-		}
+	const onSubmit = async (form: Filter) => {
+		const filters = transformFilterToCorrectFormat(form)
+		console.log(filters)
+		dispatch(setFilters(filters))
 	}
 	useEffect(() => {
 		;(async () => {

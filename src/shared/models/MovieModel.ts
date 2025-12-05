@@ -36,10 +36,17 @@ export interface Pagination {
 }
 
 export interface Filter {
-	search: string
-	genres: string[]
+	search?: string | null
+	years: number[]
+	ageLimits: number[]
+	genres?: string[] | null
+}
+
+export interface MovieFilter {
+	search?: string | null
 	minYear: number
 	maxYear: number
 	minAge: number
 	maxAge: number
+	genres?: string[] | null
 }
