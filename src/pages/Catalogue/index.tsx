@@ -7,13 +7,13 @@ import MovieCard from './ui/MovieCard'
 import FilterForm from './ui/FilterForm'
 import { useCatalogue } from './hooks/useCatalogue'
 import styles from './index.module.scss'
+import { useModal } from '@hooks/useModal'
 
 const MovieCataloguePage = () => {
-	const [openModal, setOpen] = useState<boolean>(false)
+	const { openModal, setOpen } = useModal()
 	const {
 		loadedMovies,
 		disableLoad,
-		isLoading,
 		handleOnCardClick,
 		increaseCurrentPage
 	} = useCatalogue()

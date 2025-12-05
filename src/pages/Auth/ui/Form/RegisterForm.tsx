@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { LoginOutlined } from '@ant-design/icons'
 import { useAppNotification } from '@hooks/useAppNotification'
 import { registerUser } from '@pages/Auth/api/auth'
+import { REGISTRATION_FAILED } from '@pages/Auth/constants/messages'
 
 const RegisterForm = () => {
 	const {
@@ -28,7 +29,7 @@ const RegisterForm = () => {
 		}
 	})
 	const [isLoading, setIsLoading] = useState<boolean>(false)
-	const { contextHolder, showNotification } = useAppNotification('error')
+	const { contextHolder, showNotification } = useAppNotification()
 
 	const dispatch: any = useDispatch()
 	const onSubmit = async (form: AuthRequest) => {
@@ -36,11 +37,14 @@ const RegisterForm = () => {
 			setIsLoading(true)
 			return await dispatch(registerUser(form))
 		} catch (error: any) {
-			return showNotification({
-				message: 'Ошибка при регистрации',
-				description: error?.message,
-				placement: 'bottomRight'
-			})
+			return showNotification(
+				{
+					message: REGISTRATION_FAILED,
+					description: error?.message,
+					placement: 'bottomRight'
+				},
+				'error'
+			)
 		} finally {
 			return setIsLoading(false)
 		}

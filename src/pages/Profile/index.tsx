@@ -3,20 +3,17 @@ import { SettingOutlined } from '@ant-design/icons'
 
 import imageDefault from '@assets/userAvatar.jpg'
 import styles from './index.module.scss'
-import { useEffect, useState } from 'react'
-import type { UserModel } from '@shared/models/UserModel'
-import { fetchProfile } from './api/profile'
+import { useProfile } from './hooks/useProfile'
+import CustomModal from '@widgets/Modal'
+import { useModal } from '@hooks/useModal'
+import { ProfileForm } from './ui/Form/ProfileForm'
 
 const ProfilePage = () => {
-	const [profile, setProfile] = useState<UserModel | null>(null)
-	const [isLoading, setIsLoading] = useState<boolean>(false)
-	useEffect(() => {
-		if (profile === null) {
-			;(async () => {
-				setProfile(await fetchProfile())
-			})()
-		}
-	}, [profile])
+	const { profile, isLoading } = useProfile()
+	const { openModal, setOpen } = useModal()
+	const handleEditButtonClick = () => {
+		setOpen(true)
+	}
 	return (
 		<section className={styles.profilePage}>
 			<div className={styles.container}>
@@ -29,12 +26,20 @@ const ProfilePage = () => {
 							icon={<SettingOutlined />}
 							iconPosition='end'
 							size='large'
+							onClick={handleEditButtonClick}
 						></Button>
 					</Tooltip>
 				</article>
 				<div className={styles.profileDetailsContainer}>
 					<div className={styles.imageContainer}>
-						<img src={imageDefault} alt='Фото пользователя' />
+						<img
+							src={profile?.imageUrl || ''}
+							onError={({ currentTarget }) => {
+								currentTarget.onerror = null
+								currentTarget.src = imageDefault
+							}}
+							alt='Фото пользователя'
+						/>
 					</div>
 					<ul className={styles.profileDetails}>
 						<li className={styles.profileDetailsItem}>
@@ -53,6 +58,12 @@ const ProfilePage = () => {
 					</ul>
 				</div>
 			</div>
+			<CustomModal
+				modalTitle={`Редактирование данных`}
+				open={openModal}
+				setOpen={setOpen}
+				children={<ProfileForm {...profile} />}
+			/>
 		</section>
 	)
 }
