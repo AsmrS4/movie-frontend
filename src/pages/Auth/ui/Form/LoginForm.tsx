@@ -10,6 +10,7 @@ import type { AuthRequest } from '@pages/Auth/models/AuthModel'
 import { loginUser } from '@pages/Auth/api/auth'
 import { LoginOutlined } from '@ant-design/icons'
 import { useAppNotification } from '@hooks/useAppNotification'
+import { AUTHORIZATION_FAILED } from '@pages/Auth/constants/messages'
 
 const LoginForm = () => {
 	const {
@@ -24,7 +25,7 @@ const LoginForm = () => {
 		}
 	})
 	const [isLoading, setIsLoading] = useState<boolean>(false)
-	const { contextHolder, showNotification } = useAppNotification('error')
+	const { contextHolder, showNotification } = useAppNotification()
 
 	const dispatch: any = useDispatch()
 	const onSubmit = async (form: AuthRequest) => {
@@ -32,11 +33,14 @@ const LoginForm = () => {
 			setIsLoading(true)
 			return await dispatch(loginUser(form))
 		} catch (error: any) {
-			return showNotification({
-				message: 'Ошибка при авторизации',
-				description: error?.message,
-				placement: 'bottomRight'
-			})
+			return showNotification(
+				{
+					message: AUTHORIZATION_FAILED,
+					description: error?.message,
+					placement: 'bottomRight'
+				},
+				'error'
+			)
 		} finally {
 			return setIsLoading(false)
 		}

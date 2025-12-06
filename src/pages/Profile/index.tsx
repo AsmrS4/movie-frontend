@@ -9,7 +9,7 @@ import { useModal } from '@hooks/useModal'
 import { ProfileForm } from './ui/Form/ProfileForm'
 
 const ProfilePage = () => {
-	const { profile, isLoading } = useProfile()
+	const { profile, isLoading, setProfile } = useProfile()
 	const { openModal, setOpen } = useModal()
 	const handleEditButtonClick = () => {
 		setOpen(true)
@@ -62,7 +62,15 @@ const ProfilePage = () => {
 				modalTitle={`Редактирование данных`}
 				open={openModal}
 				setOpen={setOpen}
-				children={<ProfileForm {...profile} />}
+				children={
+					<ProfileForm
+						{...profile}
+						callback={() => {
+							setOpen(false)
+						}}
+						setProfile={setProfile}
+					/>
+				}
 			/>
 		</section>
 	)

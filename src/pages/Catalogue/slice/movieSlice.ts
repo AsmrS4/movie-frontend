@@ -13,13 +13,7 @@ interface MoviesInitialProps {
 }
 
 const initialState: MoviesInitialProps = {
-	filter: {
-		search: '',
-		minAge: 0,
-		maxAge: 18,
-		minYear: 1950,
-		maxYear: new Date().getFullYear()
-	},
+	filter: null,
 	movies: [],
 	isLoading: false,
 	pagination: {
@@ -49,6 +43,9 @@ const movieSlice = createSlice({
 			state.filter = action.payload
 			state.pagination.current = 1
 		},
+		resetFilters: state => {
+			state.filter = null
+		},
 		changeCurrentPage: state => {
 			state.pagination.current = state.pagination.current + 1
 		}
@@ -61,7 +58,8 @@ export const {
 	setPagination,
 	changeCurrentPage,
 	clearMovies,
-	setFilters
+	setFilters,
+	resetFilters
 } = movieSlice.actions
 
 export default movieSlice.reducer

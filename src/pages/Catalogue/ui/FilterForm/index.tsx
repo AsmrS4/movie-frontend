@@ -1,6 +1,5 @@
 import { InputField } from '@components/Input/InputField'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAppNotification } from '@hooks/useAppNotification'
 import { Button, Form } from 'antd'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -10,8 +9,8 @@ import { filterSchema, type FilterSchema } from '../../constant/schema.config'
 import CustomSelect from '@components/MultipleSelect'
 import { fetchGenres } from '@pages/Catalogue/slice/api'
 import type { Filter, GenreProps, MovieFilter } from '@shared/models/MovieModel'
-import { useAppSelector } from '@hooks/useAppSelector'
 import { setFilters } from '@pages/Catalogue/slice/movieSlice'
+import { delay } from '@helpers/delay'
 
 const transformFilterToCorrectFormat = (rawFilters: Filter) => {
 	const filters: MovieFilter = {
@@ -25,7 +24,11 @@ const transformFilterToCorrectFormat = (rawFilters: Filter) => {
 	return filters
 }
 
-const FilterForm = () => {
+interface FilterFormProps {
+	setClose: () => void
+}
+
+const FilterForm = ({ setClose }: FilterFormProps) => {
 	const currentYear = new Date().getFullYear()
 	const {
 		handleSubmit,
@@ -44,8 +47,10 @@ const FilterForm = () => {
 	const dispatch: any = useDispatch()
 	const onSubmit = async (form: Filter) => {
 		const filters = transformFilterToCorrectFormat(form)
-		console.log(filters)
 		dispatch(setFilters(filters))
+		setTimeout(() => {
+			setClose()
+		}, 300)
 	}
 	useEffect(() => {
 		;(async () => {
@@ -123,7 +128,6 @@ const FilterForm = () => {
 				</Form.Item>
 				<Button
 					style={{
-						width: '100%',
 						backgroundColor: '#242424',
 						color: '#fff',
 						fontSize: '14px',

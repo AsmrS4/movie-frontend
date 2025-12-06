@@ -13,12 +13,22 @@ import { Button, Form } from 'antd'
 
 import { Controller, useForm } from 'react-hook-form'
 
+interface CallbackProps {
+	callback: any
+}
+
+interface ProfileFormProps {
+	setProfile: React.Dispatch<React.SetStateAction<UserModel>>
+}
+
 export const ProfileForm = ({
 	firstName,
 	lastName,
 	login,
-	imageUrl
-}: UserModel) => {
+	imageUrl,
+	callback,
+	setProfile
+}: UserModel & CallbackProps & ProfileFormProps) => {
 	const {
 		handleSubmit,
 		control,
@@ -33,9 +43,13 @@ export const ProfileForm = ({
 		}
 	})
 	const { contextHolder, showNotification } = useAppNotification()
+	const setClose = () => {
+		callback()
+	}
 	const onSubmit = async (form: EditUserModel) => {
 		try {
-			await editProfile(form)
+			const editedProfileResponse = await editProfile(form)
+			setProfile(editedProfileResponse)
 			return showNotification(
 				{
 					message: SUCCESS,
@@ -53,6 +67,10 @@ export const ProfileForm = ({
 				},
 				'error'
 			)
+		} finally {
+			setTimeout(() => {
+				setClose()
+			}, 300)
 		}
 	}
 	return (

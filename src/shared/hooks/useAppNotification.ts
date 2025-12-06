@@ -12,7 +12,7 @@ export const useAppNotification = () => {
 		const config: NotificationArgsProps = {
 			message: props.message,
 			description: props.description,
-			duration: props.duration || 3,
+			duration: props.duration || 2,
 			showProgress: props.showProgress || true,
 			placement: props.placement || 'bottomRight',
 			role: props.role || 'alert'

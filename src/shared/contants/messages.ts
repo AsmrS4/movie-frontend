@@ -1,6 +1,7 @@
 export const FETCHING_ERROR = 'Не удалось выполнить запрос'
 export const PAGE_NOT_FOUND = 'Страница не найдена'
 export const EMPTY_REVIEWS_RESULT = 'У этого фильма пока нет рецензий'
+export const EMPTY_FILMS_RESULT = 'Фильмы не найдены'
 export const INTERNAL_SERVER_ERROR = 'Сервер не доступен'
 export const SUCCESS = 'Запрос выполнен'
 export const EDIT_PROFILE_SUCCESS = 'Данные успешно изменены'

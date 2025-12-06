@@ -1,6 +1,6 @@
 import { useAppSelector } from '@hooks/useAppSelector'
 import { useDispatch } from 'react-redux'
-import { changeCurrentPage } from '../slice/movieSlice'
+import { changeCurrentPage, resetFilters } from '../slice/movieSlice'
 import { useEffect, useState } from 'react'
 import { fetchMovies } from '../slice/api'
 import type { MovieCardProps } from '@shared/models/MovieModel'
@@ -17,6 +17,10 @@ export const useCatalogue = () => {
 		window.location.href = `/movie/${cardId}`
 	}
 
+	const resetMovieFilters = () => {
+		dispatch(resetFilters())
+	}
+
 	const increaseCurrentPage = () => {
 		if (pagination.current <= pagination.count)
 			dispatch(changeCurrentPage())
@@ -24,7 +28,7 @@ export const useCatalogue = () => {
 
 	useEffect(() => {
 		setDisableLoadButton(
-			pagination.count != 0 && pagination.current >= pagination.count
+			pagination.count === 0 || pagination.current >= pagination.count
 		)
 	}, [pagination.current, pagination.count])
 
@@ -49,6 +53,7 @@ export const useCatalogue = () => {
 		disableLoad,
 		isLoading,
 		handleOnCardClick,
-		increaseCurrentPage
+		increaseCurrentPage,
+		resetMovieFilters
 	}
 }

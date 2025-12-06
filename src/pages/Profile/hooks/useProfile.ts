@@ -17,5 +17,5 @@ export const useProfile = () => {
 			setProfile(await fetchProfile())
 		})()
 	}, [])
-	return { profile, isLoading }
+	return { profile, isLoading, setProfile }
 }
