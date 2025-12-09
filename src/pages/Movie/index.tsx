@@ -11,13 +11,11 @@ import noImage from '@assets/no-photo.jpeg'
 
 const MoviePage = () => {
 	const { id } = useParams()
-	const {movie, isLoading} = useMovie(id || '')
-	const {reviews, hasReview} = useReviews(id || '')
-	
-	const handleClickOnFavouritesButton = () => {
+	const { movie, isLoading } = useMovie(id || '')
+	const { reviews } = useReviews(id || '')
 
-	}
-	
+	const handleClickOnFavouritesButton = () => {}
+
 	return (
 		<section className={styles.moviePage}>
 			<div className={styles.container}>
@@ -26,16 +24,29 @@ const MoviePage = () => {
 				</div>
 				<section className={styles.movieDetailsContainer}>
 					<div className={styles.imageContainer}>
-						{movie.rating > 0 && <span className={styles.ratingMark}>{ceilDecimal(movie.rating)}</span>}
-						<img src={movie?.imageUrl} 
+						{movie.rating > 0 && (
+							<span className={styles.ratingMark}>
+								{ceilDecimal(movie.rating)}
+							</span>
+						)}
+						<img
+							src={movie?.imageUrl}
 							onError={({ currentTarget }) => {
-    						currentTarget.onerror = null; 
-    						currentTarget.src=noImage;}} 
-							alt='Фото пользователя' />
+								currentTarget.onerror = null
+								currentTarget.src = noImage
+							}}
+							alt='Фото пользователя'
+						/>
 					</div>
 					<ul className={styles.movieDetails}>
 						<li className={styles.movieDetailsItem}>
-							<Button shape='round'>В избранное</Button>
+							{!movie.inFavourites ? (
+								<Button shape='round'>В избранное</Button>
+							) : (
+								<Button shape='round'>
+									Удалить из избранного
+								</Button>
+							)}
 						</li>
 						<li className={styles.movieDetailsItem}>
 							<strong>О фильме</strong>
@@ -81,16 +92,22 @@ const MoviePage = () => {
 				<section className={styles.movieReviewsContainer}>
 					<div className={styles.movieReviewsSectionTitle}>
 						<strong>Рецензии пользователей</strong>
-						{reviews && reviews.length > 0 && <span className={styles.count}>{reviews?.length} рецензии</span>}
-						{!hasReview && <Button
-							className={styles.styledButton}
-							shape='round'
-							icon={<PlusOutlined />}
-						>
-							Написать рецензию
-						</Button>}
+						{reviews && reviews.length > 0 && (
+							<span className={styles.count}>
+								{reviews?.length} рецензии
+							</span>
+						)}
+						{!movie.hasReview && (
+							<Button
+								className={styles.styledButton}
+								shape='round'
+								icon={<PlusOutlined />}
+							>
+								Написать рецензию
+							</Button>
+						)}
 					</div>
-					<ReviewList reviews={reviews}/>
+					<ReviewList reviews={reviews} />
 				</section>
 			</div>
 		</section>

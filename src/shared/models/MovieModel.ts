@@ -22,6 +22,8 @@ export interface MoviePageProps {
 	actors: string
 	director: string
 	genres: GenreProps[]
+	inFavourites: boolean
+	hasReview: boolean
 }
 
 export interface GenreProps {

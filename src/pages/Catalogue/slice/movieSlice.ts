@@ -45,6 +45,7 @@ const movieSlice = createSlice({
 		},
 		resetFilters: state => {
 			state.filter = null
+			state.pagination.current = 1
 		},
 		changeCurrentPage: state => {
 			state.pagination.current = state.pagination.current + 1

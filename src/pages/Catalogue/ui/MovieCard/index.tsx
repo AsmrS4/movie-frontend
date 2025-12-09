@@ -1,12 +1,11 @@
 import { useEffect } from 'react'
 import styles from './index.module.scss'
-import { Badge, Button, Tooltip } from 'antd'
+import { Badge, Tooltip } from 'antd'
 import type { MovieCardProps } from '@shared/models/MovieModel'
 import { useRecommendMark } from '@hooks/useRecommendMark'
 import type { CallbackProps } from '@shared/models/Callback'
 import noImage from '@assets/no-photo.jpeg'
 const MovieCard = ({
-	movieId,
 	title,
 	filmYear,
 	imageUrl,
@@ -14,10 +13,16 @@ const MovieCard = ({
 	genres,
 	callback
 }: MovieCardProps & CallbackProps) => {
-	const { isVisible, color, recommendationMsg, handleRecommend } = useRecommendMark()
+	const { isVisible, color, recommendationMsg, handleRecommend } =
+		useRecommendMark()
 	useEffect(() => {
 		handleRecommend(rating)
 	}, [])
+	const filmGenres = genres
+		.map(genre => {
+			return genre.name
+		})
+		.join(', ')
 	return (
 		<Badge.Ribbon
 			text={recommendationMsg}
@@ -30,9 +35,9 @@ const MovieCard = ({
 						className={styles.cardImage}
 						src={imageUrl}
 						onError={({ currentTarget }) => {
-    						currentTarget.onerror = null; 
-    						currentTarget.src=noImage;
-  						}}
+							currentTarget.onerror = null
+							currentTarget.src = noImage
+						}}
 						alt='Не удалось загрузить изобажение'
 					/>
 				</div>
@@ -43,11 +48,11 @@ const MovieCard = ({
 						</Tooltip>
 					</li>
 					<li className={styles.cardBodyItem}>
-						<span className={styles.cardInfo}>{filmYear}</span>
-						<span className={styles.cardInfo}>
-							{', '}
-							{genres[0].name}
-						</span>
+						<Tooltip title={filmGenres} placement='bottom'>
+							<p className={styles.cardInfo}>
+								{filmYear + ', ' + filmGenres}
+							</p>
+						</Tooltip>
 					</li>
 				</ul>
 			</div>

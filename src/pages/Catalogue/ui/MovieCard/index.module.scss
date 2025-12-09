@@ -39,9 +39,19 @@
 
 			.cardInfo {
 				margin: 0;
-				font-size: 16px;
-				font-weight: 400;
+				font-size: 18px;
+				font-weight: 600;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+				width: auto;
 				color: #777777;
+				transition: all ease-in-out 0.2s;
+
+				&:hover {
+					color: #f38a02;
+				}
+				cursor: pointer;
 			}
 		}
 	}
