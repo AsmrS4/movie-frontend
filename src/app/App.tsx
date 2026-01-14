@@ -6,6 +6,7 @@ import MovieCataloguePage from '@pages/Catalogue'
 import MoviePage from '@pages/Movie'
 import Header from '@widgets/Header/Header'
 import Footer from '@widgets/Footer/Footer'
+import { FavouritesPage } from '@pages/Favourites'
 
 function App() {
 	return (
@@ -19,7 +20,7 @@ function App() {
 						<Route element={<PrivateRoute />}>
 							<Route
 								path='/favourites'
-								element={<MovieCataloguePage />}
+								element={<FavouritesPage />}
 							/>
 							<Route path='/profile' element={<ProfilePage />} />
 						</Route>

@@ -7,6 +7,16 @@ export interface MovieCardProps {
 	genres: GenreProps[]
 }
 
+export interface MovieShort {
+	movieId: string
+	title: string
+	filmYear: number
+	country: string
+	imageUrl: string
+	ageLimit: number
+	genres: GenreProps[]
+}
+
 export interface MoviePageProps {
 	movieId: string
 	title: string

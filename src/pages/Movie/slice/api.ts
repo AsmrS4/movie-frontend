@@ -7,9 +7,7 @@ import type { CreateReviewModel, EditReviewModel } from '../models/ReviewModel'
 
 export const fetchMovieDetails = async (movieId: string) => {
 	try {
-		const response = await instanceWithOptionalAuthorization(
-			`/movie/${movieId}`
-		)
+		const response = await instanceDefault(`/movie/${movieId}`)
 		return response.data
 	} catch (error) {}
 }
